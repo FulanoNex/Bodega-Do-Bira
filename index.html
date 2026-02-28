@@ -62,11 +62,11 @@ body {
 /* HERO */
 .hero {
     text-align: center;
-    padding: 120px 20px;
+    padding: 80px 20px;
 }
 
 .hero h1 {
-    font-size: 60px;
+    font-size: 50px;
     background: linear-gradient(90deg, #ffcc00, #ff6600);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -79,34 +79,39 @@ body {
 }
 
 .hero p {
-    font-size: 22px;
+    font-size: 20px;
     color: #ccc;
 }
 
-/* PLAYLIST */
+/* PLAYER MINI */
 .playlist {
-    max-width: 900px;
-    margin: 40px auto;
     text-align: center;
 }
 
-/* COPOS DE CERVEJA */
+.video-box {
+    width: 220px;              /* MENOR POSSÍVEL */
+    margin: 20px auto;
+}
+
+.video-box iframe {
+    width: 100%;
+    height: 130px;             /* Mini player */
+    border-radius: 12px;
+}
+
+/* COPOS ANIMADOS */
 .beer {
     position: fixed;
     bottom: -100px;
     font-size: 30px;
     animation: floatBeer linear infinite;
-    opacity: 0.15;
+    opacity: 0.12;
     z-index: -1;
 }
 
 @keyframes floatBeer {
-    from {
-        transform: translateY(0) rotate(0deg);
-    }
-    to {
-        transform: translateY(-120vh) rotate(360deg);
-    }
+    from { transform: translateY(0) rotate(0deg); }
+    to { transform: translateY(-120vh) rotate(360deg); }
 }
 
 footer {
@@ -134,13 +139,17 @@ footer {
 </section>
 
 <section class="playlist">
-<h2>🎶 Nossa Playlist</h2>
-<iframe width="100%" height="400"
-src="https://www.youtube.com/embed/videoseries?list=PLs7IiTClOZVF2w1Kkmt4FxuAiwZDddpMj"
-frameborder="0"
-allow="autoplay; encrypted-media"
-allowfullscreen>
-</iframe>
+<h3>🎶 Tocando Agora</h3>
+
+<div class="video-box">
+    <iframe
+    src="https://www.youtube.com/embed/videoseries?list=PLs7IiTClOZVF2w1Kkmt4FxuAiwZDddpMj"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+    </iframe>
+</div>
+
 </section>
 
 <footer>
@@ -149,7 +158,7 @@ allowfullscreen>
 
 <script>
 const emojis = ["🍺","🍻","🥃"];
-const totalBeers = 20;
+const totalBeers = 15;
 
 for (let i = 0; i < totalBeers; i++) {
     const beer = document.createElement("div");
