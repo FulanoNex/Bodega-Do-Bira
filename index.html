@@ -12,6 +12,7 @@ body {
     background: linear-gradient(to bottom, #1a0d00, #000000);
     color: white;
     overflow-x: hidden;
+    transition: 0.5s;
 }
 
 /* TOPO */
@@ -22,23 +23,20 @@ body {
     font-weight: bold;
 }
 
-/* BADGE AO VIVO */
 .live {
     display: inline-block;
     background: red;
     padding: 6px 20px;
     border-radius: 20px;
     font-size: 14px;
-    font-weight: bold;
     animation: blink 1s infinite;
-    box-shadow: 0 0 10px red;
 }
 
 @keyframes blink {
     50% { opacity: 0.3; }
 }
 
-/* BOTÃO DISCORD */
+/* DISCORD */
 .discord-top {
     margin-left: 20px;
     background: #5865F2;
@@ -46,72 +44,70 @@ body {
     padding: 8px 18px;
     border-radius: 30px;
     text-decoration: none;
-    font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(88,101,242, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(88,101,242, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(88,101,242, 0); }
 }
 
 /* HERO */
 .hero {
     text-align: center;
-    padding: 80px 20px;
+    padding: 60px 20px;
 }
 
-.hero h1 {
-    font-size: 50px;
-    background: linear-gradient(90deg, #ffcc00, #ff6600);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: neon 3s infinite alternate;
-}
-
-@keyframes neon {
-    from { text-shadow: 0 0 10px #ff6600; }
-    to { text-shadow: 0 0 30px #ffcc00; }
-}
-
-.hero p {
-    font-size: 20px;
-    color: #ccc;
-}
-
-/* PLAYER MINI */
-.playlist {
-    text-align: center;
-}
-
+/* MINI PLAYER */
 .video-box {
-    width: 220px;              /* MENOR POSSÍVEL */
+    width: 220px;
     margin: 20px auto;
 }
-
 .video-box iframe {
     width: 100%;
-    height: 130px;             /* Mini player */
+    height: 130px;
     border-radius: 12px;
 }
 
-/* COPOS ANIMADOS */
-.beer {
-    position: fixed;
-    bottom: -100px;
-    font-size: 30px;
-    animation: floatBeer linear infinite;
-    opacity: 0.12;
-    z-index: -1;
+/* EQUALIZADOR */
+.equalizer {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 20px 0;
+}
+.bar {
+    width: 6px;
+    height: 20px;
+    background: #ff6600;
+    animation: bounce 1s infinite ease-in-out;
+}
+.bar:nth-child(2){animation-delay:.2s;}
+.bar:nth-child(3){animation-delay:.4s;}
+.bar:nth-child(4){animation-delay:.6s;}
+.bar:nth-child(5){animation-delay:.8s;}
+
+@keyframes bounce {
+    0%,100%{height:20px;}
+    50%{height:50px;}
 }
 
-@keyframes floatBeer {
-    from { transform: translateY(0) rotate(0deg); }
-    to { transform: translateY(-120vh) rotate(360deg); }
+/* SEÇÕES */
+.section {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #111;
+    border-radius: 15px;
+}
+
+/* BOTÕES */
+button {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    margin: 5px;
+}
+
+/* FORM */
+#pedidoForm {
+    display: none;
+    margin-top: 10px;
 }
 
 footer {
@@ -125,50 +121,108 @@ footer {
 <body>
 
 <div class="top-bar">
-    🔴 <span class="live">DJ BIRA AO VIVO 🎧</span>
-
-    <a href="https://discord.gg/tUf6tkpRH9" target="_blank" class="discord-top">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" width="22">
-        Entrar no Discord
-    </a>
+🔴 <span class="live">DJ BIRA AO VIVO 🎧</span>
+<a href="https://discord.gg/tUf6tkpRH9" target="_blank" class="discord-top">
+Entrar no Discord
+</a>
 </div>
 
 <section class="hero">
-<h1>BODEGA DO BIRA</h1>
-<p>Conectada em você 🍺🎧</p>
-</section>
-
-<section class="playlist">
-<h3>🎶 Tocando Agora</h3>
+<h1>BODEGA DO BIRA 🍺</h1>
 
 <div class="video-box">
-    <iframe
-    src="https://www.youtube.com/embed/videoseries?list=PLs7IiTClOZVF2w1Kkmt4FxuAiwZDddpMj"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen>
-    </iframe>
+<iframe src="https://www.youtube.com/embed/videoseries?list=PLs7IiTClOZVF2w1Kkmt4FxuAiwZDddpMj"></iframe>
 </div>
 
+<div class="equalizer">
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+<div class="bar"></div>
+</div>
+
+<div id="ouvintes">👥 128 ouvindo agora</div>
+
 </section>
+
+<div class="section">
+<h3>🌙 Luzes do Bar</h3>
+<button onclick="mudarTema('roxo')">Neon Roxo</button>
+<button onclick="mudarTema('vermelho')">Vermelho Bar</button>
+<button onclick="mudarTema('azul')">Azul Balada</button>
+</div>
+
+<div class="section">
+<h3>🗓️ Agenda da Semana</h3>
+<p>SEXTA - DJ BIRA 22h</p>
+<p>SÁBADO - Noite do Funk</p>
+<p>DOMINGO - Pagodão</p>
+</div>
+
+<div class="section">
+<h3>🥃 Promoções</h3>
+<p>🍺 Clone de chopp até 23h</p>
+<p>🥃 Dose dupla de tequila</p>
+</div>
+
+<div class="section">
+<h3>🎵 Pedido de Música</h3>
+<button onclick="toggleForm()">Pedir Música</button>
+
+<div id="pedidoForm">
+<input type="text" placeholder="Seu nome"><br><br>
+<input type="text" placeholder="Nome da música"><br><br>
+<button>Enviar</button>
+</div>
+</div>
+
+<div class="section">
+<h3>🗳️ Enquete</h3>
+<p>Qual estilo agora?</p>
+<label><input type="radio" name="estilo"> Funk</label><br>
+<label><input type="radio" name="estilo"> Pagode</label><br>
+<label><input type="radio" name="estilo"> Eletrônica</label>
+</div>
+
+<div class="section">
+<h3>🍻 Ranking Top 10</h3>
+<ol>
+<li>João - 120 pts</li>
+<li>Maria - 110 pts</li>
+<li>Pedro - 98 pts</li>
+<li>Ana - 87 pts</li>
+<li>Carlos - 75 pts</li>
+</ol>
+</div>
 
 <footer>
 © 2026 Bodega do Bira - Todos os direitos reservados
 </footer>
 
 <script>
-const emojis = ["🍺","🍻","🥃"];
-const totalBeers = 15;
-
-for (let i = 0; i < totalBeers; i++) {
-    const beer = document.createElement("div");
-    beer.classList.add("beer");
-    beer.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
-    beer.style.left = Math.random() * 100 + "vw";
-    beer.style.animationDuration = (10 + Math.random() * 15) + "s";
-    beer.style.fontSize = (20 + Math.random() * 30) + "px";
-    document.body.appendChild(beer);
+function mudarTema(cor){
+if(cor==='roxo'){
+document.body.style.background="linear-gradient(to bottom,#2b004d,#000)";
 }
+if(cor==='vermelho'){
+document.body.style.background="linear-gradient(to bottom,#330000,#000)";
+}
+if(cor==='azul'){
+document.body.style.background="linear-gradient(to bottom,#001a33,#000)";
+}
+}
+
+function toggleForm(){
+var form=document.getElementById("pedidoForm");
+form.style.display=form.style.display==="none"?"block":"none";
+}
+
+/* contador fake animado */
+setInterval(()=>{
+let numero=Math.floor(Math.random()*50)+100;
+document.getElementById("ouvintes").innerText="👥 "+numero+" ouvindo agora";
+},4000);
 </script>
 
 </body>
