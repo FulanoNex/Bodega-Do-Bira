@@ -9,46 +9,49 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: radial-gradient(circle at top left, #1a0026, #000);
+    background: #0f001a;
     color: white;
     overflow-x: hidden;
 }
 
+/* FUNDO ESTRELAS */
+body::before {
+    content: "";
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.05;
+    animation: moveStars 60s linear infinite;
+    z-index: -1;
+}
+
+@keyframes moveStars {
+    from { transform: translate(0,0); }
+    to { transform: translate(-500px,-500px); }
+}
+
 /* TOPO PLAYER */
-.top-player {
-    background: linear-gradient(90deg, #ff0077, #7b00ff);
+.top-bar {
+    background: linear-gradient(90deg, #ff00cc, #7b00ff);
     padding: 15px;
     text-align: center;
     font-weight: bold;
 }
 
-/* MENU */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(10px);
+/* BADGE AO VIVO */
+.live {
+    display: inline-block;
+    background: red;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    animation: blink 1s infinite;
 }
 
-.logo {
-    font-size: 22px;
-    font-weight: bold;
-    background: linear-gradient(90deg, #ff00cc, #00ffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-nav a {
-    color: #ccc;
-    text-decoration: none;
-    margin-left: 20px;
-    transition: 0.3s;
-}
-
-nav a:hover {
-    color: #ff00cc;
+@keyframes blink {
+    50% { opacity: 0.3; }
 }
 
 /* HERO */
@@ -58,72 +61,61 @@ nav a:hover {
 }
 
 .hero h1 {
-    font-size: 70px;
-    margin: 0;
+    font-size: 60px;
     background: linear-gradient(90deg, #ff00cc, #00ffff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: neon 3s infinite alternate;
 }
 
-.hero h2 {
-    font-size: 30px;
+@keyframes neon {
+    from { text-shadow: 0 0 10px #ff00cc; }
+    to { text-shadow: 0 0 30px #00ffff; }
+}
+
+.hero p {
+    font-size: 22px;
     color: #aaa;
-    margin-top: 10px;
-}
-
-.live-badge {
-    display: inline-block;
-    background: #ff0055;
-    padding: 8px 20px;
-    border-radius: 30px;
-    margin-bottom: 20px;
-    font-size: 14px;
 }
 
 /* PLAYLIST */
 .playlist {
     max-width: 900px;
-    margin: 60px auto;
+    margin: 40px auto;
     text-align: center;
 }
 
-/* FOOTER */
+/* WHATSAPP */
+.whatsapp {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25D366;
+    color: white;
+    padding: 15px 18px;
+    border-radius: 50%;
+    font-size: 22px;
+    text-decoration: none;
+    box-shadow: 0 0 15px #25D366;
+}
+
 footer {
     text-align: center;
     padding: 30px;
-    background: rgba(0,0,0,0.7);
     color: #777;
-}
-
-/* RESPONSIVO */
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 40px;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="top-player">
-🎧 Rádio Bodega do Bira - Ao Vivo 24/7
+<div class="top-bar">
+🔴 <span class="live">AO VIVO</span> - Rádio Bodega do Bira 24/7
 </div>
 
-<header>
-<div class="logo">Bodega do Bira</div>
-<nav>
-<a href="#">Início</a>
-<a href="#">Programação</a>
-<a href="#">Pedidos</a>
-<a href="#">Contato</a>
-</nav>
-</header>
-
 <section class="hero">
-<div class="live-badge">🔴 AO VIVO 24/7</div>
 <h1>BODEGA DO BIRA</h1>
-<h2>Conectada em você</h2>
+<p>Conectada em você 🎧</p>
 </section>
 
 <section class="playlist">
@@ -135,6 +127,8 @@ allow="autoplay; encrypted-media"
 allowfullscreen>
 </iframe>
 </section>
+
+<a class="whatsapp" href="https://wa.me/SEUNUMEROAQUI" target="_blank">💬</a>
 
 <footer>
 © 2026 Bodega do Bira - Todos os direitos reservados
