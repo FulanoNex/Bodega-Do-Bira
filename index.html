@@ -12,58 +12,7 @@ font-family:'Segoe UI',sans-serif;
 background:linear-gradient(to bottom,#1a0d00,#000);
 color:white;
 overflow-x:hidden;
-transition:background 0.6s ease;
-position:relative;
-}
-
-/* LUZ BALADA */
-.light{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:radial-gradient(circle at center,rgba(255,0,150,0.15),transparent 70%);
-animation:lightMove 5s infinite alternate;
-pointer-events:none;
-z-index:0;
-}
-@keyframes lightMove{
-0%{background:radial-gradient(circle at center,rgba(255,0,150,0.15),transparent 70%);}
-50%{background:radial-gradient(circle at center,rgba(0,150,255,0.15),transparent 70%);}
-100%{background:radial-gradient(circle at center,rgba(255,120,0,0.15),transparent 70%);}
-}
-
-/* FUMAÇA */
-.smoke{
-position:fixed;
-bottom:-100px;
-width:200px;
-height:200px;
-background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%);
-border-radius:50%;
-animation:smokeUp 30s linear infinite;
-pointer-events:none;
-z-index:0;
-}
-@keyframes smokeUp{
-from{transform:translateY(0) scale(1);opacity:0.2;}
-to{transform:translateY(-120vh) scale(1.8);opacity:0;}
-}
-
-/* COPOS */
-.beer{
-position:fixed;
-bottom:-80px;
-font-size:26px;
-animation:beerUp 25s linear infinite;
-opacity:0.12;
-pointer-events:none;
-z-index:0;
-}
-@keyframes beerUp{
-from{transform:translateY(0) rotate(0deg);}
-to{transform:translateY(-120vh) rotate(360deg);}
+transition:0.5s;
 }
 
 /* TOPO */
@@ -73,7 +22,7 @@ padding:15px;
 text-align:center;
 font-weight:bold;
 position:relative;
-z-index:2;
+z-index:5;
 }
 .live{
 background:red;
@@ -83,7 +32,7 @@ animation:blink 1s infinite;
 }
 @keyframes blink{50%{opacity:0.3;}}
 
-/* BOTÃO DISCORD */
+/* DISCORD */
 .discord-top{
 display:inline-flex;
 align-items:center;
@@ -94,10 +43,8 @@ color:white;
 padding:8px 18px;
 border-radius:30px;
 text-decoration:none;
-font-weight:bold;
 animation:pulse 2s infinite;
 }
-.discord-top img{width:20px;}
 @keyframes pulse{
 0%{box-shadow:0 0 0 0 rgba(88,101,242,0.7);}
 70%{box-shadow:0 0 0 12px rgba(88,101,242,0);}
@@ -105,72 +52,63 @@ animation:pulse 2s infinite;
 }
 
 /* HERO */
-.hero{text-align:center;padding:50px 20px;position:relative;z-index:2;}
-
-/* MINI PLAYER */
+.hero{text-align:center;padding:40px;}
 .video-box{width:220px;margin:20px auto;}
 .video-box iframe{width:100%;height:130px;border-radius:12px;}
 
-/* EQUALIZADOR */
 .equalizer{display:flex;justify-content:center;gap:6px;margin:20px 0;}
 .bar{
-width:6px;
-height:20px;
-background:#ff6600;
+width:6px;height:20px;background:#ff6600;
 animation:bounce 1.2s infinite ease-in-out;
 }
 .bar:nth-child(2){animation-delay:.2s;}
 .bar:nth-child(3){animation-delay:.4s;}
 .bar:nth-child(4){animation-delay:.6s;}
 .bar:nth-child(5){animation-delay:.8s;}
-@keyframes bounce{
-0%,100%{height:20px;}
-50%{height:45px;}
-}
+@keyframes bounce{0%,100%{height:20px;}50%{height:45px;}}
 
-/* SEÇÕES */
 .section{
-max-width:600px;
-margin:30px auto;
-padding:20px;
+max-width:600px;margin:25px auto;
+padding:20px;background:#111;border-radius:15px;
+}
+
+button{padding:6px 12px;border-radius:15px;border:none;margin:5px;cursor:pointer;}
+
+footer{text-align:center;padding:20px;color:#777;}
+
+/* ADMIN */
+#adminPanel{
+position:fixed;
+top:0;
+right:-400px;
+width:380px;
+height:100%;
 background:#111;
-border-radius:15px;
-position:relative;
-z-index:2;
+overflow:auto;
+padding:20px;
+transition:0.4s;
+z-index:999;
+box-shadow:-5px 0 20px rgba(0,0,0,0.6);
 }
-
-button{
-padding:8px 15px;
-border-radius:20px;
-border:none;
-cursor:pointer;
-margin:5px;
-}
-
-#pedidoForm{display:none;margin-top:10px;}
-
-footer{text-align:center;padding:30px;color:#777;position:relative;z-index:2;}
+#adminPanel.open{right:0;}
+.admin-title{font-size:18px;margin-bottom:10px;color:#ff6600;}
+input{width:100%;margin:5px 0;padding:5px;}
 </style>
 </head>
-
 <body>
-
-<div class="light"></div>
 
 <div class="top-bar">
 🔴 <span class="live">DJ BIRA AO VIVO 🎧</span>
-
-<a href="https://discord.gg/tUf6tkpRH9" target="_blank" class="discord-top">
-<img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png">
-Entrar no Discord
-</a>
+<a href="https://discord.gg/tUf6tkpRH9" target="_blank" class="discord-top">Entrar no Discord</a>
 </div>
 
 <section class="hero">
-<h1>BODEGA DO BIRA 🍺</h1>
+<h1 id="titulo">BODEGA DO BIRA 🍺</h1>
 
 <div class="video-box">
-<iframe src="https://www.youtube.com/embed/videoseries?list=PLs7IiTClOZVF2w1Kkmt4FxuAiwZDddpMj"></iframe>
+<iframe id="player"
+src="https://www.youtube.com/embed/videoseries?list=PLs7IiTClOZVF2w1Kkmt4FxuAiwZDddpMj">
+</iframe>
 </div>
 
 <div class="equalizer">
@@ -183,97 +121,110 @@ Entrar no Discord
 </section>
 
 <div class="section">
-<h3>🌙 Luzes do Bar</h3>
-<button onclick="tema('roxo')">Neon Roxo</button>
-<button onclick="tema('vermelho')">Vermelho Bar</button>
-<button onclick="tema('azul')">Azul Balada</button>
+<h3>🗓️ Agenda</h3>
+<div id="agenda">
+SEXTA - DJ BIRA 22h<br>
+SÁBADO - Noite do Funk<br>
+DOMINGO - Pagodão
 </div>
-
-<div class="section">
-<h3>🗓️ Agenda da Semana</h3>
-<p>SEXTA - DJ BIRA 22h</p>
-<p>SÁBADO - Noite do Funk</p>
-<p>DOMINGO - Pagodão</p>
 </div>
 
 <div class="section">
 <h3>🥃 Promoções</h3>
-<p>🍺 Clone de chopp até 23h</p>
-<p>🥃 Dose dupla de tequila</p>
-</div>
-
-<div class="section">
-<h3>🎵 Pedido de Música</h3>
-<button onclick="toggleForm()">Pedir Música</button>
-<div id="pedidoForm">
-<input type="text" placeholder="Seu nome"><br><br>
-<input type="text" placeholder="Nome da música"><br><br>
-<button>Enviar</button>
+<div id="promocoes">
+🍺 Clone de chopp até 23h<br>
+🥃 Dose dupla de tequila
 </div>
 </div>
 
 <div class="section">
-<h3>🗳️ Enquete</h3>
-<p>Qual estilo agora?</p>
-<label><input type="radio" name="estilo"> Funk</label><br>
-<label><input type="radio" name="estilo"> Pagode</label><br>
-<label><input type="radio" name="estilo"> Eletrônica</label>
-</div>
-
-<div class="section">
-<h3>🍻 Ranking Top 10</h3>
-<ol>
-<li>João - 120 pts</li>
-<li>Maria - 110 pts</li>
-<li>Pedro - 98 pts</li>
-<li>Ana - 87 pts</li>
-<li>Carlos - 75 pts</li>
+<h3>🍻 Ranking</h3>
+<ol id="ranking">
+<li>João - 120</li>
+<li>Maria - 110</li>
 </ol>
 </div>
 
-<footer>
-© 2026 Bodega do Bira - Todos os direitos reservados
-</footer>
+<footer>© 2026 Bodega do Bira</footer>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel">
+<div class="admin-title">👑 Painel Admin</div>
+
+<h4>🎵 Música</h4>
+<input id="novoLink" placeholder="Novo link embed">
+<button onclick="alterarMusica()">Alterar</button>
+<button onclick="intervalo()">Em Intervalo</button>
+
+<h4>👥 Ouvintes</h4>
+<input id="numeroFixo" placeholder="Número fixo">
+<button onclick="definirOuvintes()">Definir</button>
+
+<h4>🗓️ Agenda</h4>
+<input id="novaAgenda" placeholder="Texto nova agenda">
+<button onclick="alterarAgenda()">Alterar</button>
+
+<h4>🥃 Promoções</h4>
+<input id="novaPromo" placeholder="Nova promoção">
+<button onclick="alterarPromo()">Alterar</button>
+
+<h4>🍻 Ranking</h4>
+<input id="novoRank" placeholder="Nome - Pontos">
+<button onclick="addRanking()">Adicionar</button>
+
+<button onclick="fecharAdmin()">Fechar</button>
+</div>
 
 <script>
 
-/* CONTADOR */
-setInterval(()=>{
-let numero=Math.floor(Math.random()*40)+110;
-document.getElementById("ouvintes").textContent="👥 "+numero+" ouvindo agora";
-},6000);
+/* ADMIN ABRIR */
+let segredo="";
+document.addEventListener("keydown",(e)=>{
+segredo+=e.key;
+if(segredo.includes("Loira123")){
+abrirAdmin();
+segredo="";
+}
+});
 
-/* TEMAS */
-function tema(cor){
-if(cor==='roxo')document.body.style.background="linear-gradient(to bottom,#2b004d,#000)";
-if(cor==='vermelho')document.body.style.background="linear-gradient(to bottom,#330000,#000)";
-if(cor==='azul')document.body.style.background="linear-gradient(to bottom,#001a33,#000)";
+let clicks=0;
+document.getElementById("titulo").onclick=()=>{
+clicks++;
+if(clicks>=5){abrirAdmin();clicks=0;}
+};
+
+function abrirAdmin(){
+document.getElementById("adminPanel").classList.add("open");
+}
+function fecharAdmin(){
+document.getElementById("adminPanel").classList.remove("open");
 }
 
-/* FORM */
-function toggleForm(){
-let f=document.getElementById("pedidoForm");
-f.style.display=f.style.display==="block"?"none":"block";
+/* FUNÇÕES ADMIN */
+function alterarMusica(){
+let link=document.getElementById("novoLink").value;
+document.getElementById("player").src=link;
 }
-
-/* COPOS */
-const emojis=["🍺","🍻","🥃"];
-for(let i=0;i<12;i++){
-let b=document.createElement("div");
-b.className="beer";
-b.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
-b.style.left=Math.random()*100+"vw";
-b.style.animationDuration=(20+Math.random()*15)+"s";
-document.body.appendChild(b);
+function intervalo(){
+document.getElementById("player").src="";
+alert("🎧 Voltamos em 5 minutos");
 }
-
-/* FUMAÇA */
-for(let i=0;i<5;i++){
-let s=document.createElement("div");
-s.className="smoke";
-s.style.left=Math.random()*100+"vw";
-s.style.animationDuration=(25+Math.random()*20)+"s";
-document.body.appendChild(s);
+function definirOuvintes(){
+let num=document.getElementById("numeroFixo").value;
+document.getElementById("ouvintes").innerText="👥 "+num+" ouvindo agora";
+}
+function alterarAgenda(){
+document.getElementById("agenda").innerHTML=
+document.getElementById("novaAgenda").value;
+}
+function alterarPromo(){
+document.getElementById("promocoes").innerHTML=
+document.getElementById("novaPromo").value;
+}
+function addRanking(){
+let li=document.createElement("li");
+li.innerText=document.getElementById("novoRank").value;
+document.getElementById("ranking").appendChild(li);
 }
 
 </script>
