@@ -177,54 +177,124 @@ DOMINGO - Pagodão
 
 <script>
 
-/* ADMIN ABRIR */
-let segredo="";
-document.addEventListener("keydown",(e)=>{
-segredo+=e.key;
-if(segredo.includes("Loira123")){
-abrirAdmin();
-segredo="";
+<script>
+
+/* =========================
+   SISTEMA ADMIN COM SENHA
+========================= */
+
+let segredoDigitado = "";
+let senhaCorreta = "Loira123";
+let clicks = 0;
+
+/* CRIAR MODAL DE SENHA */
+let modal = document.createElement("div");
+modal.innerHTML = `
+<div id="loginAdmin" style="
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:1000;
+">
+  <div style="
+  background:#111;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
+  width:300px;
+  box-shadow:0 0 20px #ff6600;">
+    <h3>🔐 Acesso Admin</h3>
+    <input type="password" id="senhaInput" placeholder="Digite a senha"
+    style="width:100%;padding:8px;margin:10px 0;border-radius:8px;border:none;">
+    <button onclick="verificarSenha()" 
+    style="padding:8px 15px;border:none;border-radius:10px;background:#ff6600;color:white;cursor:pointer;">
+    Entrar</button>
+  </div>
+</div>
+`;
+document.body.appendChild(modal);
+
+/* ABRIR LOGIN */
+function abrirLogin(){
+  document.getElementById("loginAdmin").style.display = "flex";
 }
+
+/* VERIFICAR SENHA */
+function verificarSenha(){
+  let senha = document.getElementById("senhaInput").value;
+  if(senha === senhaCorreta){
+    document.getElementById("loginAdmin").style.display = "none";
+    abrirAdmin();
+  }else{
+    alert("❌ Senha incorreta!");
+  }
+}
+
+/* ABRIR ADMIN */
+function abrirAdmin(){
+  document.getElementById("adminPanel").classList.add("open");
+}
+
+/* FECHAR ADMIN */
+function fecharAdmin(){
+  document.getElementById("adminPanel").classList.remove("open");
+}
+
+/* ATIVAR VIA DIGITAÇÃO */
+document.addEventListener("keydown",(e)=>{
+  segredoDigitado += e.key;
+  if(segredoDigitado.includes("Loira123")){
+    abrirLogin();
+    segredoDigitado = "";
+  }
 });
 
-let clicks=0;
-document.getElementById("titulo").onclick=()=>{
-clicks++;
-if(clicks>=5){abrirAdmin();clicks=0;}
+/* ATIVAR CLICANDO 5X NO TÍTULO */
+document.getElementById("titulo").onclick = () => {
+  clicks++;
+  if(clicks >= 5){
+    abrirLogin();
+    clicks = 0;
+  }
 };
 
-function abrirAdmin(){
-document.getElementById("adminPanel").classList.add("open");
-}
-function fecharAdmin(){
-document.getElementById("adminPanel").classList.remove("open");
+/* =========================
+   FUNÇÕES ADMIN
+========================= */
+
+function alterarMusica(){
+  let link=document.getElementById("novoLink").value;
+  document.getElementById("player").src=link;
 }
 
-/* FUNÇÕES ADMIN */
-function alterarMusica(){
-let link=document.getElementById("novoLink").value;
-document.getElementById("player").src=link;
-}
 function intervalo(){
-document.getElementById("player").src="";
-alert("🎧 Voltamos em 5 minutos");
+  document.getElementById("player").src="";
+  alert("🎧 Voltamos em 5 minutos");
 }
+
 function definirOuvintes(){
-let num=document.getElementById("numeroFixo").value;
-document.getElementById("ouvintes").innerText="👥 "+num+" ouvindo agora";
+  let num=document.getElementById("numeroFixo").value;
+  document.getElementById("ouvintes").innerText="👥 "+num+" ouvindo agora";
 }
+
 function alterarAgenda(){
-document.getElementById("agenda").innerHTML=
-document.getElementById("novaAgenda").value;
+  document.getElementById("agenda").innerHTML=
+  document.getElementById("novaAgenda").value;
 }
+
 function alterarPromo(){
-document.getElementById("promocoes").innerHTML=
-document.getElementById("novaPromo").value;
+  document.getElementById("promocoes").innerHTML=
+  document.getElementById("novaPromo").value;
 }
+
 function addRanking(){
-let li=document.createElement("li");
-li.innerText=document.getElementById("novoRank").value;
-document.getElementById("ranking").appendChild(li);
+  let li=document.createElement("li");
+  li.innerText=document.getElementById("novoRank").value;
+  document.getElementById("ranking").appendChild(li);
 }
 
 </script>
