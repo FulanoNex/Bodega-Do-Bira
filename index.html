@@ -6,6 +6,20 @@
 <title>Bodega do Bira</title>
 
 <style>
+    .live {
+    display: inline-block;
+    background: red;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    animation: blink 1s infinite;
+    box-shadow: 0 0 10px red;
+}
+
+@keyframes blink {
+    50% { opacity: 0.3; }
+}
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
