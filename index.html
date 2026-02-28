@@ -6,151 +6,136 @@
 <title>Bodega do Bira</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to bottom, #1a0d00, #000000);
-    color: white;
-    overflow-x: hidden;
-    position: relative;
+body{
+margin:0;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(to bottom,#1a0d00,#000);
+color:white;
+overflow-x:hidden;
+transition:background 0.6s ease;
+position:relative;
 }
 
 /* LUZ BALADA */
-.light-effect {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at center, rgba(255,0,150,0.2), transparent 70%);
-    animation: luzBalada 4s infinite alternate;
-    pointer-events: none;
-    z-index: 1;
+.light{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:radial-gradient(circle at center,rgba(255,0,150,0.15),transparent 70%);
+animation:lightMove 5s infinite alternate;
+pointer-events:none;
+z-index:0;
 }
-
-@keyframes luzBalada {
-    0% { background: radial-gradient(circle at center, rgba(255,0,150,0.2), transparent 70%); }
-    50% { background: radial-gradient(circle at center, rgba(0,150,255,0.2), transparent 70%); }
-    100% { background: radial-gradient(circle at center, rgba(255,100,0,0.2), transparent 70%); }
+@keyframes lightMove{
+0%{background:radial-gradient(circle at center,rgba(255,0,150,0.15),transparent 70%);}
+50%{background:radial-gradient(circle at center,rgba(0,150,255,0.15),transparent 70%);}
+100%{background:radial-gradient(circle at center,rgba(255,120,0,0.15),transparent 70%);}
 }
 
 /* FUMAÇA */
-.smoke {
-    position: fixed;
-    bottom: -100px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
-    border-radius: 50%;
-    animation: subirFumaca 25s linear infinite;
-    pointer-events: none;
-    z-index: 0;
+.smoke{
+position:fixed;
+bottom:-100px;
+width:200px;
+height:200px;
+background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%);
+border-radius:50%;
+animation:smokeUp 30s linear infinite;
+pointer-events:none;
+z-index:0;
+}
+@keyframes smokeUp{
+from{transform:translateY(0) scale(1);opacity:0.2;}
+to{transform:translateY(-120vh) scale(1.8);opacity:0;}
 }
 
-@keyframes subirFumaca {
-    from {
-        transform: translateY(0) scale(1);
-        opacity: 0.2;
-    }
-    to {
-        transform: translateY(-120vh) scale(1.8);
-        opacity: 0;
-    }
+/* COPOS */
+.beer{
+position:fixed;
+bottom:-80px;
+font-size:26px;
+animation:beerUp 25s linear infinite;
+opacity:0.12;
+pointer-events:none;
+z-index:0;
+}
+@keyframes beerUp{
+from{transform:translateY(0) rotate(0deg);}
+to{transform:translateY(-120vh) rotate(360deg);}
 }
 
 /* TOPO */
-.top-bar {
-    background: linear-gradient(90deg, #ff8800, #ff3300);
-    padding: 15px;
-    text-align: center;
-    font-weight: bold;
-    position: relative;
-    z-index: 2;
+.top-bar{
+background:linear-gradient(90deg,#ff8800,#ff3300);
+padding:15px;
+text-align:center;
+font-weight:bold;
+position:relative;
+z-index:2;
 }
-
-.live {
-    display: inline-block;
-    background: red;
-    padding: 6px 20px;
-    border-radius: 20px;
-    animation: blink 1s infinite;
+.live{
+background:red;
+padding:6px 20px;
+border-radius:20px;
+animation:blink 1s infinite;
 }
-
-@keyframes blink {
-    50% { opacity: 0.3; }
-}
+@keyframes blink{50%{opacity:0.3;}}
 
 /* HERO */
-.hero {
-    text-align: center;
-    padding: 60px 20px;
-    position: relative;
-    z-index: 2;
-}
+.hero{text-align:center;padding:50px 20px;position:relative;z-index:2;}
 
 /* MINI PLAYER */
-.video-box {
-    width: 220px;
-    margin: 20px auto;
-}
-.video-box iframe {
-    width: 100%;
-    height: 130px;
-    border-radius: 12px;
-}
+.video-box{width:220px;margin:20px auto;}
+.video-box iframe{width:100%;height:130px;border-radius:12px;}
 
 /* EQUALIZADOR */
-.equalizer {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin: 20px 0;
-}
-.bar {
-    width: 6px;
-    height: 20px;
-    background: #ff6600;
-    animation: bounce 1.2s infinite ease-in-out;
+.equalizer{display:flex;justify-content:center;gap:6px;margin:20px 0;}
+.bar{
+width:6px;
+height:20px;
+background:#ff6600;
+animation:bounce 1.2s infinite ease-in-out;
 }
 .bar:nth-child(2){animation-delay:.2s;}
 .bar:nth-child(3){animation-delay:.4s;}
 .bar:nth-child(4){animation-delay:.6s;}
 .bar:nth-child(5){animation-delay:.8s;}
-
-@keyframes bounce {
-    0%,100%{height:20px;}
-    50%{height:45px;}
+@keyframes bounce{
+0%,100%{height:20px;}
+50%{height:45px;}
 }
 
-/* COPOS */
-.beer {
-    position: fixed;
-    bottom: -80px;
-    font-size: 26px;
-    animation: subir 20s linear infinite;
-    opacity: 0.12;
-    pointer-events: none;
-    z-index: 0;
+/* SEÇÕES */
+.section{
+max-width:600px;
+margin:30px auto;
+padding:20px;
+background:#111;
+border-radius:15px;
+position:relative;
+z-index:2;
 }
 
-@keyframes subir {
-    from { transform: translateY(0) rotate(0deg); }
-    to { transform: translateY(-120vh) rotate(360deg); }
+/* BOTÕES */
+button{
+padding:8px 15px;
+border-radius:20px;
+border:none;
+cursor:pointer;
+margin:5px;
 }
 
-footer {
-    text-align: center;
-    padding: 30px;
-    color: #777;
-    position: relative;
-    z-index: 2;
-}
+#pedidoForm{display:none;margin-top:10px;}
+
+footer{text-align:center;padding:30px;color:#777;position:relative;z-index:2;}
 </style>
 </head>
 
 <body>
 
-<div class="light-effect"></div>
+<div class="light"></div>
 
 <div class="top-bar">
 🔴 <span class="live">DJ BIRA AO VIVO 🎧</span>
@@ -174,6 +159,55 @@ footer {
 <div id="ouvintes">👥 128 ouvindo agora</div>
 </section>
 
+<div class="section">
+<h3>🌙 Luzes do Bar</h3>
+<button onclick="tema('roxo')">Neon Roxo</button>
+<button onclick="tema('vermelho')">Vermelho Bar</button>
+<button onclick="tema('azul')">Azul Balada</button>
+</div>
+
+<div class="section">
+<h3>🗓️ Agenda da Semana</h3>
+<p>SEXTA - DJ BIRA 22h</p>
+<p>SÁBADO - Noite do Funk</p>
+<p>DOMINGO - Pagodão</p>
+</div>
+
+<div class="section">
+<h3>🥃 Promoções</h3>
+<p>🍺 Clone de chopp até 23h</p>
+<p>🥃 Dose dupla de tequila</p>
+</div>
+
+<div class="section">
+<h3>🎵 Pedido de Música</h3>
+<button onclick="toggleForm()">Pedir Música</button>
+<div id="pedidoForm">
+<input type="text" placeholder="Seu nome"><br><br>
+<input type="text" placeholder="Nome da música"><br><br>
+<button>Enviar</button>
+</div>
+</div>
+
+<div class="section">
+<h3>🗳️ Enquete</h3>
+<p>Qual estilo agora?</p>
+<label><input type="radio" name="estilo"> Funk</label><br>
+<label><input type="radio" name="estilo"> Pagode</label><br>
+<label><input type="radio" name="estilo"> Eletrônica</label>
+</div>
+
+<div class="section">
+<h3>🍻 Ranking Top 10</h3>
+<ol>
+<li>João - 120 pts</li>
+<li>Maria - 110 pts</li>
+<li>Pedro - 98 pts</li>
+<li>Ana - 87 pts</li>
+<li>Carlos - 75 pts</li>
+</ol>
+</div>
+
 <footer>
 © 2026 Bodega do Bira - Todos os direitos reservados
 </footer>
@@ -186,25 +220,37 @@ let numero=Math.floor(Math.random()*40)+110;
 document.getElementById("ouvintes").textContent="👥 "+numero+" ouvindo agora";
 },6000);
 
+/* TEMAS */
+function tema(cor){
+if(cor==='roxo')document.body.style.background="linear-gradient(to bottom,#2b004d,#000)";
+if(cor==='vermelho')document.body.style.background="linear-gradient(to bottom,#330000,#000)";
+if(cor==='azul')document.body.style.background="linear-gradient(to bottom,#001a33,#000)";
+}
+
+/* FORM */
+function toggleForm(){
+let f=document.getElementById("pedidoForm");
+f.style.display=f.style.display==="block"?"none":"block";
+}
+
 /* COPOS */
 const emojis=["🍺","🍻","🥃"];
 for(let i=0;i<12;i++){
-let beer=document.createElement("div");
-beer.classList.add("beer");
-beer.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
-beer.style.left=Math.random()*100+"vw";
-beer.style.animationDuration=(18+Math.random()*15)+"s";
-beer.style.fontSize=(20+Math.random()*25)+"px";
-document.body.appendChild(beer);
+let b=document.createElement("div");
+b.className="beer";
+b.innerHTML=emojis[Math.floor(Math.random()*emojis.length)];
+b.style.left=Math.random()*100+"vw";
+b.style.animationDuration=(20+Math.random()*15)+"s";
+document.body.appendChild(b);
 }
 
 /* FUMAÇA */
 for(let i=0;i<5;i++){
-let smoke=document.createElement("div");
-smoke.classList.add("smoke");
-smoke.style.left=Math.random()*100+"vw";
-smoke.style.animationDuration=(20+Math.random()*20)+"s";
-document.body.appendChild(smoke);
+let s=document.createElement("div");
+s.className="smoke";
+s.style.left=Math.random()*100+"vw";
+s.style.animationDuration=(25+Math.random()*20)+"s";
+document.body.appendChild(s);
 }
 
 </script>
