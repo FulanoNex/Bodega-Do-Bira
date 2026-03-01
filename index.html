@@ -7,69 +7,60 @@
 
 <style>
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:linear-gradient(to bottom,#1a0d00,#000);
-  color:white;
-  overflow-x:hidden;
-  transition:0.4s;
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(to bottom,#1a0d00,#000);
+color:white;
+overflow-x:hidden;
+transition:0.4s;
 }
 
 /* TOPO */
 .top-bar{
-  background:linear-gradient(90deg,#ff8800,#ff3300);
-  padding:15px;
-  text-align:center;
-  font-weight:bold;
-  position:relative;
-  z-index:5;
+background:linear-gradient(90deg,#ff8800,#ff3300);
+padding:15px;
+text-align:center;
+font-weight:bold;
+position:relative;
+z-index:5;
 }
 
 .live{
-  background:red;
-  padding:6px 20px;
-  border-radius:20px;
-  animation:blink 1s infinite;
+background:red;
+padding:6px 20px;
+border-radius:20px;
+animation:blink 1s infinite;
 }
 @keyframes blink{50%{opacity:0.3;}}
 
 /* DISCORD */
 .discord-top{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  margin-left:20px;
-  background:#5865F2;
-  color:white;
-  padding:8px 18px;
-  border-radius:30px;
-  text-decoration:none;
-  animation:pulse 2s infinite;
+display:inline-flex;
+align-items:center;
+gap:8px;
+margin-left:20px;
+background:#5865F2;
+color:white;
+padding:8px 18px;
+border-radius:30px;
+text-decoration:none;
+animation:pulse 2s infinite;
 }
 @keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(88,101,242,0.7);}
-  70%{box-shadow:0 0 0 12px rgba(88,101,242,0);}
-  100%{box-shadow:0 0 0 0 rgba(88,101,242,0);}
+0%{box-shadow:0 0 0 0 rgba(88,101,242,0.7);}
+70%{box-shadow:0 0 0 12px rgba(88,101,242,0);}
+100%{box-shadow:0 0 0 0 rgba(88,101,242,0);}
 }
 
 /* HERO */
 .hero{text-align:center;padding:40px;}
-.video-box{
-  width:200px;
-  margin:20px auto;
-}
-/* ESCONDER O VIDEO, MANTER SOM */
-.video-box iframe{
-  width:1px;
-  height:1px;
-  opacity:0;
-  position:absolute;
-}
+.video-box{width:200px;margin:20px auto;}
+.video-box iframe{width:100%;height:120px;border-radius:12px;}
 
 .equalizer{display:flex;justify-content:center;gap:6px;margin:20px 0;}
 .bar{
-  width:6px;height:20px;background:#ff6600;
-  animation:bounce 1.2s infinite ease-in-out;
+width:6px;height:20px;background:#ff6600;
+animation:bounce 1.2s infinite ease-in-out;
 }
 .bar:nth-child(2){animation-delay:.2s;}
 .bar:nth-child(3){animation-delay:.4s;}
@@ -78,42 +69,42 @@ body{
 @keyframes bounce{0%,100%{height:20px;}50%{height:45px;}}
 
 .section{
-  max-width:600px;margin:25px auto;
-  padding:20px;background:#111;border-radius:15px;
+max-width:600px;margin:25px auto;
+padding:20px;background:#111;border-radius:15px;
 }
 
 button{
-  padding:6px 12px;
-  border-radius:15px;
-  border:none;
-  margin:5px;
-  cursor:pointer;
+padding:6px 12px;
+border-radius:15px;
+border:none;
+margin:5px;
+cursor:pointer;
 }
 
 footer{text-align:center;padding:20px;color:#777;}
 
 /* ADMIN */
 #adminPanel{
-  position:fixed;
-  top:0;
-  right:-400px;
-  width:380px;
-  height:100%;
-  background:#111;
-  overflow:auto;
-  padding:20px;
-  transition:0.4s;
-  z-index:999;
-  box-shadow:-5px 0 20px rgba(0,0,0,0.6);
+position:fixed;
+top:0;
+right:-400px;
+width:380px;
+height:100%;
+background:#111;
+overflow:auto;
+padding:20px;
+transition:0.4s;
+z-index:999;
+box-shadow:-5px 0 20px rgba(0,0,0,0.6);
 }
 #adminPanel.open{right:0;}
 
 input{
-  width:100%;
-  margin:5px 0;
-  padding:6px;
-  border-radius:8px;
-  border:none;
+width:100%;
+margin:5px 0;
+padding:6px;
+border-radius:8px;
+border:none;
 }
 
 /* COPOS FLOUTANTES */
@@ -212,8 +203,7 @@ Entrar no Discord
 
 <div class="video-box">
 <iframe id="player"
-src="https://www.youtube.com/embed/videoseries?list=PLs7IiTClOZVF2w1Kkmt4FxuAiwZDddpMj&autoplay=1&loop=1&playlist=PLs7IiTClOZVF2w1Kkmt4FxuAiwZDddpMj"
-allow="autoplay">
+src="https://www.youtube.com/embed/videoseries?list=PLs7IiTClOZVF2w1Kkmt4FxuAiwZDddpMj">
 </iframe>
 </div>
 
@@ -261,7 +251,7 @@ DOMINGO - Pagodão do DJ BIRA
 <h3>👑 Painel Admin</h3>
 
 <h4>🎵 Música</h4>
-<input id="novoLink" placeholder="Novo link embed (YouTube playlist)">
+<input id="novoLink" placeholder="Novo link embed">
 <button onclick="alterarMusica()">Alterar</button>
 <button onclick="intervalo()">Em Intervalo</button>
 
@@ -322,77 +312,72 @@ z-index:2000;">
 document.body.appendChild(modal);
 
 function abrirLogin(){
-  document.getElementById("loginAdmin").style.display="flex";
+document.getElementById("loginAdmin").style.display="flex";
 }
 function abrirAdmin(){
-  document.getElementById("adminPanel").classList.add("open");
+document.getElementById("adminPanel").classList.add("open");
 }
 window.fecharAdmin=function(){
-  document.getElementById("adminPanel").classList.remove("open");
+document.getElementById("adminPanel").classList.remove("open");
 }
 
 document.addEventListener("click",function(e){
-  if(e.target && e.target.id==="btnEntrar"){
-    let senha=document.getElementById("senhaInput").value;
-    if(senha===senhaCorreta){
-      document.getElementById("loginAdmin").style.display="none";
-      abrirAdmin();
-    }else{
-      alert("❌ Senha incorreta!");
-    }
-  }
+if(e.target && e.target.id==="btnEntrar"){
+let senha=document.getElementById("senhaInput").value;
+if(senha===senhaCorreta){
+document.getElementById("loginAdmin").style.display="none";
+abrirAdmin();
+}else{
+alert("❌ Senha incorreta!");
+}
+}
 });
 
 document.addEventListener("keydown",function(e){
-  segredoDigitado+=e.key;
-  if(segredoDigitado.includes("Loira123")){
-    abrirLogin();
-    segredoDigitado="";
-  }
-  if(segredoDigitado.length>20){
-    segredoDigitado="";
-  }
+segredoDigitado+=e.key;
+if(segredoDigitado.includes("Loira123")){
+abrirLogin();
+segredoDigitado="";
+}
+if(segredoDigitado.length>20){
+segredoDigitado="";
+}
 });
 
 document.getElementById("titulo").addEventListener("click",function(){
-  clicks++;
-  if(clicks>=5){
-    abrirLogin();
-    clicks=0;
-  }
+clicks++;
+if(clicks>=5){
+abrirLogin();
+clicks=0;
+}
 });
 
 /* ADMIN FUNÇÕES */
 window.alterarMusica=function(){
-  let link=document.getElementById("novoLink").value;
-  if(link){
-    // Garante autoplay e loop
-    let playlistID = link.includes("list=") ? link.split("list=")[1] : link;
-    document.getElementById("player").src = 
-      "https://www.youtube.com/embed/videoseries?list=" + playlistID + "&autoplay=1&loop=1&playlist=" + playlistID;
-  }
+document.getElementById("player").src=
+document.getElementById("novoLink").value;
 }
 window.intervalo=function(){
-  document.getElementById("player").src="";
-  alert("🎧 Voltamos em 5 minutos");
+document.getElementById("player").src="";
+alert("🎧 Voltamos em 5 minutos");
 }
 window.definirOuvintes=function(){
-  let num=document.getElementById("numeroFixo").value;
-  document.getElementById("ouvintes").innerText =
-    "👥 "+num+" ouvindo agora";
+let num=document.getElementById("numeroFixo").value;
+document.getElementById("ouvintes").innerText=
+"👥 "+num+" ouvindo agora";
 }
 window.alterarAgenda=function(){
-  document.getElementById("agenda").innerHTML =
-    document.getElementById("novaAgenda").value;
+document.getElementById("agenda").innerHTML=
+document.getElementById("novaAgenda").value;
 }
 window.alterarPromo=function(){
-  document.getElementById("promocoes").innerHTML =
-    document.getElementById("novaPromo").value;
+document.getElementById("promocoes").innerHTML=
+document.getElementById("novaPromo").value;
 }
 window.addRanking=function(){
-  let li=document.createElement("li");
-  li.innerText=document.getElementById("novoRank").value;
-  document.getElementById("ranking").appendChild(li);
+let li=document.createElement("li");
+li.innerText=document.getElementById("novoRank").value;
+document.getElementById("ranking").appendChild(li);
 }
 
 });
